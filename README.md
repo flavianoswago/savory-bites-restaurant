@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Savory Bites Restaurant Website
 
-## Getting Started
+A responsive restaurant website built with Next.js App Router, React, TypeScript, and regular CSS. The frontend presents Savory Bites in Kakamega and gives visitors ways to explore the menu, prepare an order, request a table, and contact the restaurant.
 
-First, run the development server:
+## Run locally
+
+Install dependencies and start the development server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Useful project commands:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run build
+npm start
+```
 
-## Learn More
+## Website features
 
-To learn more about Next.js, take a look at the following resources:
+- Responsive restaurant homepage with an editorial visual style, food photography, story section, and menu.
+- Menu search and category filters, with quantity controls and a cart total.
+- Pickup or delivery selection. Delivery orders require an address in Kakamega.
+- WhatsApp order handoff with the selected dishes, quantities, total, and fulfilment preference included in the message.
+- Table request form for a date, time, guest count, name, and phone number. Requests are marked pending in the browser and WhatsApp opens so the visitor can ask the restaurant to confirm.
+- Kakamega Town location, P.O. Box 48654-597, clickable phone number, Google Maps search link, and opening hours from Monday through Sunday, 7:00 AM–8:00 PM.
+- Floating WhatsApp contact link.
+- Footer with quick links, contact details, WhatsApp and directions links, responsive layout, reduced-motion support, back-to-top button, and current-year copyright.
+- Newsletter email validation and clear feedback. The form does not send or save email addresses because no newsletter service is connected.
+- Next.js image optimization for Unsplash photos, restricted to `images.unsplash.com` in `next.config.ts`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Where things live
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `app/page.tsx` — homepage sections and page composition.
+- `app/restaurant-tools.tsx` — menu search, cart, WhatsApp ordering, and reservation form.
+- `app/site-footer.tsx` — footer content and newsletter interaction.
+- `app/whatsapp-share.tsx` — restaurant WhatsApp contact button.
+- `app/globals.css` — responsive site and footer styling.
+- `app/layout.tsx` — root layout and page metadata.
+- `next.config.ts` — approved remote image host for Next.js Image.
 
-## Deploy on Vercel
+## Frontend storage and service setup
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Cart contents and the most recent reservation request are stored in the visitor’s browser using `localStorage`. They are not shared with restaurant staff or synchronized between devices. WhatsApp is used to send the prepared order or reservation message; the restaurant must confirm availability and payment directly.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project does not yet include:
+
+- A server database or staff dashboard for orders and reservations.
+- Reservation confirmation and cancellation controls.
+- M-Pesa or card processing. Payment confirmation should be implemented and verified by a payment provider on the server.
+- A newsletter service, restaurant email address, or Instagram, Facebook, and TikTok profile URLs.
+- Privacy Policy or Terms and Conditions pages.
+
+Add those integrations and the restaurant’s real URLs and email address before treating the site as a complete production ordering or marketing system.
+
+## Verification
+
+The current frontend passes ESLint and the Next.js production build:
+
+```bash
+npm run lint
+npm run build
+```

@@ -1,68 +1,95 @@
 # Savory Bites Restaurant Website
 
-A responsive restaurant website built with Next.js App Router, React, TypeScript, and regular CSS. The frontend presents Savory Bites in Kakamega and gives visitors ways to explore the menu, prepare an order, request a table, and contact the restaurant.
+A responsive restaurant website for Savory Bites in Kakamega, built with the Next.js App Router, React, TypeScript, and regular CSS. It introduces the restaurant, presents its current menu, and lets visitors prepare orders and table requests for WhatsApp.
 
 ## Run locally
 
-Install dependencies and start the development server:
+Install the dependencies and start the development server:
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Visit [http://localhost:3000](http://localhost:3000).
 
-Useful project commands:
+## What the website includes
+
+### Restaurant presentation
+
+- Responsive homepage with the existing Savory Bites visual design, typography, colors, animations, and navigation.
+- Hero section with local food photography, restaurant story, and menu links.
+- Restaurant location details: Kakamega Town and P.O. Box 48654-597.
+- Click-to-call phone number: +254 112 810 217.
+- Google Maps search links for Savory Bites in Kakamega Town.
+- Opening hours listed for Monday through Sunday: 7:00 AM–8:00 PM every day.
+- Floating WhatsApp contact button and WhatsApp contact link in the footer.
+
+### Menu and online ordering
+
+- Current menu items and prices:
+  - Grilled Chicken — KSh 850
+  - Classic Beef Burger — KSh 650
+  - Italian Pizza — KSh 1,200
+- Search by dish name or description and filter by Chicken, Beef, and Fast Food.
+- Fish, Kenyan Favourites, and Drinks appear as disabled categories because no dishes are currently listed for them. Add confirmed menu data before enabling those categories.
+- Add dishes to the order, increase or decrease quantities, and remove items by reducing their quantity to zero.
+- Order summary shows each item’s unit price, line total, and an accurate subtotal based on the menu prices.
+- Choose pickup or delivery. A delivery address is required before checkout; no delivery charge is added to the subtotal.
+- WhatsApp checkout prepares a message with selected dishes, quantities, prices, subtotal, and fulfilment details using the restaurant’s existing WhatsApp number.
+- Cart contents are saved in the visitor’s browser with `localStorage` and restored on the next visit to that browser.
+- Loading, empty cart, and checkout feedback states are included. WhatsApp opens with a draft; customers must review and send the message for the restaurant to receive the request.
+
+### Table requests
+
+- Reservation form collects a name, phone number, date, time, and number of guests.
+- Requests are saved locally in the visitor’s browser and displayed as **Pending**.
+- The form opens WhatsApp with a request for the restaurant to confirm the booking.
+
+### Footer
+
+- Restaurant branding and tagline, quick links, location, phone, directions, WhatsApp, and social profile placeholders.
+- Newsletter form validates the email format and gives feedback. It does not send or permanently save addresses because no newsletter service is connected.
+- Back-to-top button, dynamically generated copyright year, responsive layout, accessible focus styles, and reduced-motion support.
+- Privacy Policy and Terms and Conditions are marked as pages that still need to be created.
+
+### Food photography
+
+Food images are stored locally in `public/images/food/` so the hero and menu photos do not rely on external image URLs at runtime:
+
+- `hero-grilled-meal.jpg`
+- `grilled-chicken.jpg`
+- `classic-beef-burger.jpg`
+- `italian-pizza.jpg`
+
+The About section uses a separate restaurant interior photo.
+
+## Project files
+
+- `app/page.tsx` — homepage sections, opening hours, location, and composition.
+- `app/restaurant-tools.tsx` — menu filtering, cart, WhatsApp checkout, and reservation form.
+- `app/menu-data.ts` — menu items, category assignments, cart helpers, subtotal calculation, and WhatsApp message creation.
+- `app/site-header.tsx` — responsive site navigation.
+- `app/site-footer.tsx` — footer content, newsletter feedback, and back-to-top interaction.
+- `app/whatsapp-share.tsx` — WhatsApp contact link.
+- `app/globals.css` — site styling, responsive layouts, focus states, and reduced-motion behavior.
+- `app/layout.tsx` — root layout, fonts, and metadata.
+- `public/images/food/` — local food photography.
+- `tests/menu-order.test.mjs` — menu filtering, cart quantity, subtotal, and WhatsApp checkout tests.
+- `next.config.ts` — Next.js configuration, including the remote image host used by the About section.
+
+## Run checks
 
 ```bash
-npm run lint
-npm run build
-npm start
-```
-
-## Website features
-
-- Responsive restaurant homepage with an editorial visual style, food photography, story section, and menu.
-- Menu search and category filters, with quantity controls and a cart total.
-- Pickup or delivery selection. Delivery orders require an address in Kakamega.
-- WhatsApp order handoff with the selected dishes, quantities, total, and fulfilment preference included in the message.
-- Table request form for a date, time, guest count, name, and phone number. Requests are marked pending in the browser and WhatsApp opens so the visitor can ask the restaurant to confirm.
-- Kakamega Town location, P.O. Box 48654-597, clickable phone number, Google Maps search link, and opening hours from Monday through Sunday, 7:00 AM–8:00 PM.
-- Floating WhatsApp contact link.
-- Footer with quick links, contact details, WhatsApp and directions links, responsive layout, reduced-motion support, back-to-top button, and current-year copyright.
-- Newsletter email validation and clear feedback. The form does not send or save email addresses because no newsletter service is connected.
-- Next.js image optimization for Unsplash photos, restricted to `images.unsplash.com` in `next.config.ts`.
-
-## Where things live
-
-- `app/page.tsx` — homepage sections and page composition.
-- `app/restaurant-tools.tsx` — menu search, cart, WhatsApp ordering, and reservation form.
-- `app/site-footer.tsx` — footer content and newsletter interaction.
-- `app/whatsapp-share.tsx` — restaurant WhatsApp contact button.
-- `app/globals.css` — responsive site and footer styling.
-- `app/layout.tsx` — root layout and page metadata.
-- `next.config.ts` — approved remote image host for Next.js Image.
-
-## Frontend storage and service setup
-
-Cart contents and the most recent reservation request are stored in the visitor’s browser using `localStorage`. They are not shared with restaurant staff or synchronized between devices. WhatsApp is used to send the prepared order or reservation message; the restaurant must confirm availability and payment directly.
-
-This project does not yet include:
-
-- A server database or staff dashboard for orders and reservations.
-- Reservation confirmation and cancellation controls.
-- M-Pesa or card processing. Payment confirmation should be implemented and verified by a payment provider on the server.
-- A newsletter service, restaurant email address, or Instagram, Facebook, and TikTok profile URLs.
-- Privacy Policy or Terms and Conditions pages.
-
-Add those integrations and the restaurant’s real URLs and email address before treating the site as a complete production ordering or marketing system.
-
-## Verification
-
-The current frontend passes ESLint and the Next.js production build:
-
-```bash
+npm run test:menu
 npm run lint
 npm run build
 ```
+
+The menu tests cover category filters, adding and removing quantities, subtotal calculations, and the generated WhatsApp checkout message and URL.
+
+## Current limitations
+
+This is a frontend project. Cart contents and the latest reservation request stay in the visitor’s browser; restaurant staff do not receive or manage them through a database or dashboard. Orders and reservations are only sent to the restaurant if the customer sends the prepared WhatsApp message. The site does not process M-Pesa or card payments.
+
+Newsletter signup does not store addresses. The restaurant email address and Instagram, Facebook, and TikTok profile URLs have not been provided. Privacy Policy and Terms and Conditions pages have not been created. Additional menu categories should be populated only after the restaurant confirms those dishes and their prices.
